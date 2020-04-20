@@ -31,9 +31,9 @@ class TimeoffHandler(object):
         }
 
         command, _, body = original_content.partition("request")
-        timeoff_request["manager"], _, body = original_content.partition("for")
-        timeoff_request["leave_type"], _, body = original_content.partition("from")
-        timeoff_request["start_time"], _, body = original_content.partition("to")
+        timeoff_request["manager"], _, original_content = original_content.partition("for")
+        timeoff_request["leave_type"], _, original_content = original_content.partition("from")
+        timeoff_request["start_time"], _, original_content = original_content.partition("to")
         timeoff_request["end_time"], _, timeoff_request["details"] = original_content.partition("as")
 
         timeoff_request["manager"] = timeoff_request["manager"].strip()
