@@ -30,7 +30,7 @@ class TimeoffHandler(object):
             "details":None
         }
 
-        command, _, body = original_content.partition("request")
+        command, _, original_content = original_content.partition("request")
         timeoff_request["manager"], _, original_content = original_content.partition("for")
         timeoff_request["leave_type"], _, original_content = original_content.partition("from")
         timeoff_request["start_time"], _, original_content = original_content.partition("to")
