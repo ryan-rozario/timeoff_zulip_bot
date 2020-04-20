@@ -104,7 +104,7 @@ class TimeoffHandler(object):
                 bot_handler.send_reply(message, "There was an eror while creating your request. Please try again later")
 
         if command=="approve":
-            body = message.replace("approve request", " ")
+            body = original_content.replace("approve request", " ")
             body=body.strip()
             timeoff_request={"accepted":True}
             timeoff_request["manager"]=original_sender
@@ -138,8 +138,8 @@ class TimeoffHandler(object):
 
 
         if command=="view":
-            body = message.replace("view requests", "")
-            body = message.replace("view request", "")
+            body = original_content.replace("view requests", "")
+            body = original_content.replace("view request", "")
             body=body.strip()
             option = body.strip().lower()
             url = "/api/leaves"
