@@ -76,9 +76,21 @@ class TimeoffHandler(object):
         original_sender = message['sender_email']
         #print(message)
 
+        original_content = original_content.replace("@**timeoff|15742**", " ")
+        original_content = original_content.replace("@**timeoff|15760**", " ")
+        original_content = original_content.strip()
+
         command, _, body = original_content.partition(" ")
 
-        if command=="create_request":
+        command = command.strip().lower()
+
+        if command=="request":
+            
+            command, _, body = original_content.partition("request")
+            command, _, body = original_content.partition("for")            
+
+            command, _, body = body.partition(" ")
+
             timeoff_request=self._create_request_parse(body)
             if timeoff_request==0:
                 bot_handler.send_reply(message, "Incorrect Format")
@@ -107,7 +119,9 @@ class TimeoffHandler(object):
             else:
                 bot_handler.send_reply(message, "There was an eror while creating your request. Please try again later")
 
-        if command=="approve_request":
+        if command=="approve":
+            body = message.replace("approve request", " ")
+            body=body.strip()
             timeoff_request={"accepted":True}
             timeoff_request["manager"]=original_sender
 
@@ -139,7 +153,10 @@ class TimeoffHandler(object):
                 bot_handler.send_reply(message, "There was an eror while approving. Please try again later")
 
 
-        if command=="view_requests":
+        if command=="view":
+            body = message.replace("view requests", "")
+            body = message.replace("view request", "")
+            body=body.strip()
             option = body.strip().lower()
             url = "/api/leaves"
             url = BASE+url
@@ -164,18 +181,17 @@ class TimeoffHandler(object):
 
                 leave_mes=""
                 for timeoff_request in response_list:
-                    #print(timeoff_request)
                     leave_number = str(timeoff_request["id"])
-                    leave_mes += f'Application Number : {leave_number}  Accepted:{timeoff_request["accepted"]}  Type : {timeoff_request["leave_type"]}    Start Date : {timeoff_request["start_time"]}   End Date : {timeoff_request["end_time"]}   Details : {timeoff_request["details"]}  \n\n '
+                    leave_mes += f'Application Number : {leave_number}  Accepted:{timeoff_request["accepted"]}  \nType : {timeoff_request["leave_type"]}    Start Date : {timeoff_request["start_time"]}   End Date : {timeoff_request["end_time"]}  \nDetails : {timeoff_request["details"]}  \n\n '
                 bot_handler.send_reply(message, leave_mes)
 
 
             else:
-                bot_handler.send_reply(message, "There was an eror while approving. Please try again later")
+                bot_handler.send_reply(message, "There was an eror while approving. Please try again later. Use help command to view list of commands")
 
 
         if command=="help":
-            mes = " create_request type:<vacation/sick leave/work from home>, details:<details>, start :DD/MM/YY, end:DD/MM/YY, manager:<manager email related to zulip account>\n\n approve_request <application number>\n\n view_requests sent\n\n view_requests received\n\n list_commands \n\n"
+            mes = " create_request type:<vacation/sick leave/work from home>, details:<details>, start :DD/MM/YY, end:DD/MM/YY, manager:<manager email related to zulip account>\n\n approve request <application number>\n\n view requests sent\n\n view requests received\n\n help \n\n"
             bot_handler.send_reply(message, mes)
 
 

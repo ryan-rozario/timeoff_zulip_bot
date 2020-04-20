@@ -92,3 +92,9 @@ ENV/
 
 #visual studio
 .vscodetimeoff/zuliprc
+
+.vscode/
+
+python-zulip-api/
+
+timeoff/zuliprc
