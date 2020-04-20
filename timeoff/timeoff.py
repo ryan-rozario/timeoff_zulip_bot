@@ -20,10 +20,8 @@ class TimeoffHandler(object):
             return line
     
     def _create_request_parse(self,body):
+        #request <manager email related to zulip account> for <vacation/sick leave/work from home> from DD/MM/YY to DD/MM/YY as <details>
 
-
-        body = self._split_commas(body)
-        #print(body)
         timeoff_request={
             "leave_type":None,
             "start_time":None,
@@ -31,24 +29,18 @@ class TimeoffHandler(object):
             "manager":None,
             "details":None
         }
-        for line in body:
-            body_head, _, body_body  = line.partition(":")
-            body_head = body_head.strip().lower()
-            body_body = body_body.strip().lower()
-            #print(body_head)
-            #print(body_body)
-            if body_head=="type":
-                timeoff_request["leave_type"] = body_body
-            elif body_head=="start":
-                timeoff_request["start_time"] = body_body
-            elif body_head=="end":
-                timeoff_request["end_time"] = body_body
-            elif body_head=="manager":
-                timeoff_request["manager"] = body_body
-            elif body_head=="details":
-                timeoff_request["details"] = body_body
-            else:
-                return 0
+
+        command, _, body = original_content.partition("request")
+        timeoff_request["manager"], _, body = original_content.partition("for")
+        timeoff_request["leave_type"], _, body = original_content.partition("from")
+        timeoff_request["start_time"], _, body = original_content.partition("to")
+        timeoff_request["end_time"], _, timeoff_request["details"] = original_content.partition("as")
+
+        timeoff_request["manager"] = timeoff_request["manager"].strip()
+        timeoff_request["leave_type"] = timeoff_request["leave_type"].strip()
+        timeoff_request["start_time"] = timeoff_request["start_time"].strip()
+        timeoff_request["end_time"] = timeoff_request["end_time"].strip()
+        timeoff_request["details"] = timeoff_request["details"].strip()
 
         return timeoff_request
 
@@ -62,13 +54,13 @@ class TimeoffHandler(object):
         This bot allows you to request, review and approve time off.
         Version 1.0
 
-        create_request type:<vacation/sick leave/work from home>, details:<details>, start :DD/MM/YY, end:DD/MM/YY, manager:<manager email related to zulip account>
+        request <manager email related to zulip account> for <vacation/sick leave/work from home> from DD/MM/YY to DD/MM/YY as <details>
+
+        approve request <application number>
         
-        approve_request <application number>
-        
-        view_requests sent
-        
-        view_requests received
+        view requests sent
+
+        view requests received
         '''
 
     def handle_message(self, message, bot_handler):
@@ -85,15 +77,7 @@ class TimeoffHandler(object):
         command = command.strip().lower()
 
         if command=="request":
-            
-            command, _, body = original_content.partition("request")
-            command, _, body = original_content.partition("for")            
-
-            command, _, body = body.partition(" ")
-
-            timeoff_request=self._create_request_parse(body)
-            if timeoff_request==0:
-                bot_handler.send_reply(message, "Incorrect Format")
+            timeoff_request=self._create_request_parse(original_content)
             timeoff_request["sender"]=original_sender
             url = "/api/leaves"
             url = BASE+url
@@ -191,7 +175,7 @@ class TimeoffHandler(object):
 
 
         if command=="help":
-            mes = " create_request type:<vacation/sick leave/work from home>, details:<details>, start :DD/MM/YY, end:DD/MM/YY, manager:<manager email related to zulip account>\n\n approve request <application number>\n\n view requests sent\n\n view requests received\n\n help \n\n"
+            mes = "request <manager email related to zulip account> for <vacation/sick leave/work from home> from DD/MM/YY to DD/MM/YY as <details>\n\n approve request <application number>\n\n view requests sent\n\n view requests received\n\n help \n\n"
             bot_handler.send_reply(message, mes)
 
 
