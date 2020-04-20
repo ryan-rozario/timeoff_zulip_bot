@@ -144,6 +144,8 @@ class TimeoffHandler(object):
             option = body.strip().lower()
             url = "/api/leaves"
             url = BASE+url
+
+
             if option=="sent":
 
 
@@ -157,6 +159,7 @@ class TimeoffHandler(object):
                 response = requests.get(url, data = json.dumps(timeoff_request) ,headers=headers)
             else:
                 bot_handler.send_reply(message, "Incorrect Format")
+                return
             
             if response.status_code==200:
                 response_list = response.json()
