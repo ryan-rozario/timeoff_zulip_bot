@@ -139,7 +139,8 @@ class TimeoffHandler(object):
 
         if command=="view":
             body = original_content.replace("view requests", "")
-            body = original_content.replace("view request", "")
+            body = body.replace("view request", "")
+            #sprint(body)
             body=body.strip()
             option = body.strip().lower()
             url = "/api/leaves"
@@ -169,7 +170,7 @@ class TimeoffHandler(object):
                 leave_mes=""
                 for timeoff_request in response_list:
                     leave_number = str(timeoff_request["id"])
-                    leave_mes += f'Application Number : {leave_number}  Accepted:{timeoff_request["accepted"]}  \nType : {timeoff_request["leave_type"]}    Start Date : {timeoff_request["start_time"]}   End Date : {timeoff_request["end_time"]}  \nDetails : {timeoff_request["details"]}  \n\n '
+                    leave_mes += f'Application Number : {leave_number}  Accepted:{timeoff_request["accepted"]}  \nType : {timeoff_request["leave_type"]} \nRequested by: {timeoff_request["sender"]}  \nRequested to : Requested by: {timeoff_request["manager"]}   \nStart Date : {timeoff_request["start_time"]}   End Date : {timeoff_request["end_time"]}  \nDetails : {timeoff_request["details"]}  \n\n '
                 bot_handler.send_reply(message, leave_mes)
 
 
