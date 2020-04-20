@@ -5,7 +5,8 @@ import os
 
 
 TIMEOFF_API_TOKEN = os.environ.get('TIMEOFF_API_TOKEN', None)
-BASE = "http://127.0.0.1:5005"
+
+BASE = "https://timeoff-zulipbot.herokuapp.com"
 
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain',"Authorization": "Bearer "+TIMEOFF_API_TOKEN}
 
