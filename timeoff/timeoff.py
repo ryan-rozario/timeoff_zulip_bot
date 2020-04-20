@@ -19,7 +19,7 @@ class TimeoffHandler(object):
         for line in reader([body]):
             return line
     
-    def _create_request_parse(self,body):
+    def _create_request_parse(self,original_content):
         #request <manager email related to zulip account> for <vacation/sick leave/work from home> from DD/MM/YY to DD/MM/YY as <details>
 
         timeoff_request={
