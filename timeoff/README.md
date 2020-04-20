@@ -14,13 +14,13 @@ In a private message we can use the following:
 ```text
 create_request type:<vacation/sick leave/work from home>, details:<details>, start :DD/MM/YY, end:DD/MM/YY, manager:<manager email related to zulip account>
 
-approve_request <application number>
+approve request <application number>
 
-view_requests sent
+view requests sent
 
-view_requests received
+view requests received
 
-list_commands
+help
 ```
 
 ## How to run this bot
