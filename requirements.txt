@@ -69,7 +69,7 @@ py==1.8.1
 pycodestyle==2.5.0
 pycparser==2.20
 pyflakes==2.1.1
-Pygments==2.6.1
+Pygments==2.7.4
 pyOpenSSL==19.1.0
 pyparsing==2.4.7
 PySocks==1.7.1
