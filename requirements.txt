@@ -51,7 +51,7 @@ itsdangerous==1.1.0
 jeepney==0.4.3
 Jinja2==2.11.3
 keyring==21.2.0
-lxml==4.6.3
+lxml==4.6.5
 MarkupSafe==1.1.1
 matrix-client==0.3.2
 mccabe==0.6.1
