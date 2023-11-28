@@ -37,7 +37,7 @@ click==7.1.1
 colorama==0.4.3
 coverage==5.1
 crayons==0.3.0
-cryptography==41.0.0
+cryptography==41.0.6
 distro==1.5.0
 docutils==0.16
 dropbox==10.1.0
