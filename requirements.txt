@@ -22,7 +22,7 @@ PyJWT==2.4.0
 pymongo==3.10.1
 pytz==2019.3
 six==1.14.0
-Werkzeug==2.2.3
+Werkzeug==3.0.1
 WTForms==2.2.1
 zope.interface==5.1.0
 apiai==1.2.3
@@ -91,7 +91,7 @@ typing-extensions==3.7.4.2
 urllib3==1.26.5
 wcwidth==0.1.9
 webencodings==0.5.1
-Werkzeug==2.2.3
+Werkzeug==3.0.1
 wit==5.1.0
 zipp==3.1.0
 -e git+https://github.com/zulip/zulint@8cb430b64eec1e98ef637bafd06272ebe715aa87#egg=zulint
