@@ -4,7 +4,7 @@ blinker==1.4
 cffi==1.14.0
 click==7.1.1
 DateTime==4.3
-dnspython==1.16.0
+dnspython==2.6.1
 Flask==2.3.2
 Flask-Bcrypt==0.7.1
 Flask-JWT-Extended==3.24.1
