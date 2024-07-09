@@ -93,7 +93,7 @@ wcwidth==0.1.9
 webencodings==0.5.1
 Werkzeug==3.0.3
 wit==5.1.0
-zipp==3.1.0
+zipp==3.19.1
 -e git+https://github.com/zulip/zulint@8cb430b64eec1e98ef637bafd06272ebe715aa87#egg=zulint
 -e git+https://github.com/zulip/python-zulip-api.git@d4ded1c5ddfb739f28187b6eb27a76972366d426#egg=zulip&subdirectory=zulip
 -e git+https://github.com/zulip/python-zulip-api.git@d4ded1c5ddfb739f28187b6eb27a76972366d426#egg=zulip_bots&subdirectory=zulip_bots
